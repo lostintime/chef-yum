@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: yum_test
+# Cookbook Name:: yum
 # Recipe:: default
 #
 # Copyright 2013, Opscode, Inc.
@@ -17,11 +17,12 @@
 # limitations under the License.
 #
 
-module Helpers
-  module YumTest
-    include MiniTest::Chef::Assertions
-    include MiniTest::Chef::Context
-    include MiniTest::Chef::Resources
+require File.expand_path('../support/helpers', __FILE__)
 
+describe "yum::default" do
+  include Helpers::YumTest
+
+  it "Default recipe does nothing, so default_test does nothing" do
+    skip "Default recipe does nothing so default test does nothing"
   end
 end

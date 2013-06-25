@@ -1,5 +1,6 @@
 #
-# Cookbook Name:: yum_test
+# Cookbook Name:: yum
+# Attributes:: elrepo
 #
 # Copyright 2013, Opscode, Inc.
 #
@@ -16,16 +17,8 @@
 # limitations under the License.
 #
 
-require File.expand_path('../support/helpers', __FILE__)
-
-describe "yum_test::default" do
-  include Helpers::YumTest
-
-  it 'doesnt update the zenos-add.repo file if it exists' do
-    assert File.zero?('/etc/yum.repos.d/zenoss-add.repo')
-  end
-
-  it 'updates the zenoss-create file' do
-    file('/etc/yum.repos.d/zenoss-create.repo').must_match %r[baseurl=http://dev.zenoss.com/yum/stable/]
-  end
-end
+default['yum']['elrepo']['url'] = "http://elrepo.org/mirrors-elrepo.el#{node['platform_version'].to_i}"
+default['yum']['elrepo']['key'] = "RPM-GPG-KEY-elrepo.org"
+default['yum']['elrepo']['key_url'] = "http://elrepo.org/#{node['yum']['elrepo']['key']}"
+default['yum']['elrepo']['includepkgs'] = nil
+default['yum']['elrepo']['exclude'] = nil
